@@ -19,3 +19,40 @@ arr = np.fromstring(resized_pil.tobytes(), dtype='uint8')
 ```
 
 You'll also need to install imagemagick, and rabbitmq.
+
+For imagemagick (on a mac)
+```
+brew install imagemagick
+```
+
+For rabbitmq, see [these instructions](http://docs.celeryproject.org/en/latest/getting-started/brokers/rabbitmq.html#broker-rabbitmq).
+
+Run the server with:
+```
+python server.js
+```
+or, using uswgi
+```
+uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi
+```
+
+Also make sure to start a celery worker:
+```
+celery -A server.celery worker
+```
+
+Finally, to test it out in popcorn, open up the javascript console and run:
+```javascript
+$.ajax({
+  type: "POST",
+  url: "http://localhost:5000/create_video",
+  data: JSON.stringify(Butter.app.currentMedia.json),
+  success: function(data) {
+    alert('Your video is being prepared, and will be available at: ' + data.url);
+  },
+  contentType: "application/json",
+  dataType: "json"
+});
+```
+
+
