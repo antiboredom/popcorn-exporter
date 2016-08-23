@@ -3,3 +3,4 @@ videos/
 cache/
 *.mp4
 *.pyc
+!processing.mp4
