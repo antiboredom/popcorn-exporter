@@ -43,10 +43,13 @@ celery -A server.celery worker
 
 Finally, to test it out in popcorn, open up the javascript console and run:
 ```javascript
+var data = Butter.app.currentMedia.json;
+data.backgroundColor = Butter.app.project.background;
+
 $.ajax({
   type: "POST",
   url: "http://localhost:5000/create_video",
-  data: JSON.stringify(Butter.app.currentMedia.json),
+  data: JSON.stringify(data),
   success: function(data) {
     alert('Your video is being prepared, and will be available at: ' + data.url);
   },
